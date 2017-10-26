@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "Starting XAP..."
+echo "Starting XAP... 2"
 
 echo "Startup script completed!"
