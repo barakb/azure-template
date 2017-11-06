@@ -5,7 +5,8 @@ XAP_LICENSE_KEY=$1
 xap_blob="https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip"
 xap_rest_blob="https://xapblob.blob.core.windows.net/xap/rest-api.jar"
 
-xap_home=/opt/gigaspaces-xap
+xap_folder_name=gigaspaces-xap-12.2.0-ga-b18000
+xap_home=/opt/$xap_folder_name
 xap_envs=$xap_home/bin/setenv-overrides.sh
 xap_plugins=$xap_home/lib/platform/manager/plugins
 
@@ -31,6 +32,6 @@ export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
 } > /opt/install.log 2>&1
 
-nohup /opt/gigaspaces-xap/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
+nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
 
 echo "Startup script completed!"
