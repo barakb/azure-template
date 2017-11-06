@@ -13,10 +13,10 @@ xap_plugins=$xap_home/lib/platform/manager/plugins
 {
 echo ">> Installing required packages"
 sudo apt -y install unzip
-sudo apt -y install openjdk-8-jre-headless
+sudo apt -y install openjdk-8-jdk-headless
 
 echo ">> Download XAP"
-sudo wget -O /opt/xap.zip $xap_blob
+sudo wget -q -O /opt/xap.zip $xap_blob
 
 echo ">> Unzipping Xap archive"
 sudo unzip -u -d /opt -q /opt/xap.zip
@@ -26,12 +26,15 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee --append $x
 
 echo ">> Copy Rest API jar to $xap_plugins"
 sudo mkdir -p $xap_plugins
-sudo wget -O $xap_plugins/rest-api.jar $xap_rest_blob
+sudo wget -q -O $xap_plugins/rest-api.jar $xap_rest_blob
 
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
+export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
 } > /opt/install.log 2>&1
 
 nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
+
+nohup $xap_home/bin/gs-webui.sh > /opt/webui.log 2>&1 &
 
 echo "Startup script completed!"
