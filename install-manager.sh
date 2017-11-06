@@ -9,6 +9,7 @@ xap_home=/opt/gigaspaces-xap
 xap_envs=$xap_home/bin/setenv-overrides.sh
 xap_plugins=$xap_home/lib/platform/manager/plugins
 
+{
 echo ">> Installing required packages"
 sudo apt -y install unzip
 sudo apt -y install openjdk-8-jre-headless
@@ -28,6 +29,7 @@ sudo wget -O $xap_plugins/rest-api.jar $xap_rest_blob
 
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
+} > /opt/install.log 2>&1
 
 nohup /opt/gigaspaces-xap/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
 
