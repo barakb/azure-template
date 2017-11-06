@@ -10,6 +10,7 @@ xap_envs=$xap_home/bin/setenv-overrides.sh
 
 {
 echo ">> Installing required packages"
+sudo apt update
 sudo apt -y install unzip
 sudo apt -y install openjdk-8-jre-headless
 
