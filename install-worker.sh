@@ -1,6 +1,7 @@
 echo "Starting XAP Worker..."
 
 XAP_LICENSE_KEY=$1
+MANAGER_IP=$2
 
 xap_blob="https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip"
 
@@ -24,6 +25,7 @@ echo ">> Setup env variables"
 echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee --append $xap_envs > /dev/null
 
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
+export XAP_MANAGER_SERVERS=$MANAGER_IP
 } > /opt/install.log 2>&1
 
 nohup $xap_home/bin/gs-agent.sh --gsc=1 > /opt/xap.log 2>&1 &
