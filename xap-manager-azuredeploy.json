@@ -2,6 +2,30 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "azureClientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Client Id."
+      }
+    },
+    "azureTenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Tenant Id."
+      }
+    },
+    "azureClientSecret": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Client Secret."
+      }
+    },
+    "azureSubscriptionId": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Subscription Id."
+      }
+    },
     "adminUsername": {
       "type": "string",
       "metadata": {
@@ -17,7 +41,7 @@
     "sshKey": {
       "type": "string",
       "metadata": {
-        "description": "The ssh public key which copies to VM."
+        "description": "The ssh public key which is copied to VM."
       }
     },
     "xapLicense": {
@@ -95,7 +119,9 @@
     "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
     "imageVhdUrl": "https://xapvhd2.blob.core.windows.net/vhds/vm10disk.vhd",
     "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/scripts/master/",
-    "xapRunScript": "install-manager.sh"
+    "xapManagerRunScript": "install-manager.sh",
+    "xapBlobUrl": "https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip",
+    "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/rest-api.jar"
   },
   "resources": [
     {
@@ -234,9 +260,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(variables('scriptsBase'), variables('xapRunScript'))]"
+            "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapRunScript'), ' ', parameters('xapLicense'), ' ', parameters('sshKey'))]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license ', parameters('xapLicense'), ' --ssh-key', parameters('sshKey'), ' --azure-client-id', parameters('azureClientId'), ' --azure-tenant-id', parameters('azureTenantId'), ' --azure-client-secret', parameters('azureClientSecret'), ' --azure-subscription-id', parameters('azureSubscriptionId'), ' --xap-blob-url', variables('xapBlobUrl'), ' --xap-rest-api-blob-url', variables('xapRestApiBlobUrl'))]"
         }
       }
     }
