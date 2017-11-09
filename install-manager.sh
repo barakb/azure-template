@@ -1,6 +1,8 @@
+#!/bin/sh
+
 echo "Starting XAP..."
 
-function print_input_parameter {
+print_input_parameter() {
     key=$1
     value=$2
     echo "  $key = $value"
@@ -8,69 +10,62 @@ function print_input_parameter {
 
 echo "Parsing input parameters..."
 
-POSITIONAL=()
-while [[ $# -gt 0 ]]
-do
-key="$1"
-case $key in
-    --xap-license)
-    export XAP_LICENSE_KEY=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --ssh-key)
-    export SSH_PUBLIC_KEY=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --azure-client-id)
-    export AZURE_AUTH_CLIENT_ID=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --azure-tenant-id)
-    export AZURE_AUTH_TENANT_ID=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --azure-client-secret)
-    export AZURE_AUTH_CLIENT_SECRET=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --azure-subscription-id)
-    export AZURE_AUTH_SUBSCRIPTION_ID=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --xap-blob-url)
-    export XAP_BLOB_URL=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    --xap-rest-api-blob-url)
-    export XAP_REST_API_BLOB_URL=$2
-    print_input_parameter $key $2
-    shift
-    shift
-    ;;
-    *)
-    POSITIONAL+=("$1")
-    shift
-    ;;
-esac
+while [ $# -gt 0 ]; do
+    key="$1"
+    case $key in
+        --xap-license)
+        export XAP_LICENSE_KEY=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --ssh-key)
+        export SSH_PUBLIC_KEY=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --azure-client-id)
+        export AZURE_AUTH_CLIENT_ID=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --azure-tenant-id)
+        export AZURE_AUTH_TENANT_ID=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --azure-client-secret)
+        export AZURE_AUTH_CLIENT_SECRET=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --azure-subscription-id)
+        export AZURE_AUTH_SUBSCRIPTION_ID=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --xap-blob-url)
+        export XAP_BLOB_URL=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+        --xap-rest-api-blob-url)
+        export XAP_REST_API_BLOB_URL=$2
+        print_input_parameter $key $2
+        shift
+        shift
+        ;;
+    esac
 done
-set -- "${POSITIONAL[@]}"
 
 echo ""
-echo "Run installation"
+echo "Run installation..."
 
 xap_folder_name=$(basename $XAP_BLOB_URL .zip)
 xap_home=/opt/$xap_folder_name

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "Starting XAP Worker..."
 
 XAP_LICENSE_KEY=$1

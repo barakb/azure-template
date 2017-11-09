@@ -118,7 +118,7 @@
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
     "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
     "imageVhdUrl": "https://xapvhd2.blob.core.windows.net/vhds/vm10disk.vhd",
-    "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/scripts/master/",
+    "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/azure-template/master/",
     "xapManagerRunScript": "install-manager.sh",
     "xapBlobUrl": "https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip",
     "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/rest-api.jar"
