@@ -1,6 +1,7 @@
 echo "Starting XAP..."
 
-XAP_LICENSE_KEY=$1
+export XAP_LICENSE_KEY=$1
+export SSH_PUBLIC_KEY=$2
 
 xap_blob="https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip"
 xap_rest_blob="https://xapblob.blob.core.windows.net/xap/rest-api.jar"
