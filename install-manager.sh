@@ -118,6 +118,18 @@ echo ">> Copy Rest API jar to $xap_plugins"
 sudo mkdir -p $xap_plugins
 sudo wget -q -O $xap_plugins/rest-api.jar $XAP_REST_API_BLOB_URL
 
+echo ">> Fix jackson dependency" # TODO FIX ME
+jackson_lib_folder="$xap_home/lib/optional/jackson"
+jackson_base_url="http://central.maven.org/maven2/com/fasterxml/jackson/core"
+
+rm "$jackson_lib_folder/*"
+
+sudo wget -q -O "$jackson_lib_folder/jackson-annotations-2.7.0.jar" "$jackson_base_url/jackson-annotations/2.7.0/jackson-annotations-2.7.0.jar"
+sudo wget -q -O "$jackson_lib_folder/jackson-core-2.7.2.jar" "$jackson_base_url/jackson-core/2.7.2/jackson-core-2.7.2.jar"
+sudo wget -q -O "$jackson_lib_folder/jackson-databind-2.7.2.jar" "$jackson_base_url/jackson-databind/2.7.2/jackson-databind-2.7.2.jar"
+
+echo ">> Export env variables"
+
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
