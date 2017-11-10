@@ -65,6 +65,20 @@ while [ $# -gt 0 ]; do
         shift
         shift
         ;;
+        --install-script-base)
+        echo "  $key = $2"
+        export INSTALL_WORKER_SCRIPT_BASE="$2"
+        echo "  INSTALL_WORKER_SCRIPT_BASE = $INSTALL_WORKER_SCRIPT_BASE"
+        shift
+        shift
+        ;;
+        --install-worker-script-name)
+        echo "  $key = $2"
+        export INSTALL_WORKER_SCRIPT_NAME="$2"
+        echo "  INSTALL_WORKER_SCRIPT_NAME = $INSTALL_WORKER_SCRIPT_NAME"
+        shift
+        shift
+        ;;
         *)
         echo "Unrecognized parameter: $key"
         shift

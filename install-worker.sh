@@ -2,23 +2,55 @@
 
 echo "Starting XAP Worker..."
 
+{
 XAP_LICENSE_KEY=$1
 MANAGER_IP=$2
 
-xap_blob="https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip"
+echo "Parsing input parameters..."
 
-xap_folder_name=gigaspaces-xap-12.2.0-ga-b18000
+while [ $# -gt 0 ]; do
+    key="$1"
+    echo "key = $key"
+    case $key in
+        --xap-license)
+        echo "  $key = $2"
+        export XAP_LICENSE_KEY="$2"
+        echo "  XAP_LICENSE_KEY = $XAP_LICENSE_KEY"
+        shift
+        shift
+        ;;
+        --manager)
+        echo "  $key = $2"
+        export MANAGER_IP="$2"
+        echo "  MANAGER_IP = $MANAGER_IP"
+        shift
+        shift
+        ;;
+        --xap-blob-url)
+        echo "  $key = $2"
+        export XAP_BLOB_URL="$2"
+        echo "  XAP_BLOB_URL = $XAP_BLOB_URL"
+        shift
+        shift
+        ;;
+        *)
+        echo "Unrecognized parameter: $key"
+        shift
+        ;;
+    esac
+done
+
+xap_folder_name=$(basename $XAP_BLOB_URL .zip)
 xap_home=/opt/$xap_folder_name
 xap_envs=$xap_home/bin/setenv-overrides.sh
 
-{
 echo ">> Installing required packages"
 sudo apt update
 sudo apt -y install unzip
 sudo apt -y install openjdk-8-jre-headless
 
 echo ">> Download XAP"
-sudo wget -O /opt/xap.zip $xap_blob
+sudo wget -q -O /opt/xap.zip $XAP_BLOB_URL
 
 echo ">> Unzipping Xap archive"
 sudo unzip -u -d /opt -q /opt/xap.zip

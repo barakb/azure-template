@@ -120,6 +120,7 @@
     "imageVhdUrl": "https://xapvhd2.blob.core.windows.net/vhds/vm10disk.vhd",
     "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/azure-template/master/",
     "xapManagerRunScript": "install-manager.sh",
+    "xapWorkerRunScript": "install-worker.sh",
     "xapBlobUrl": "https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip",
     "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/rest-api.jar"
   },
@@ -262,7 +263,7 @@
           "fileUris": [
             "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('sshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\"')]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('sshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\"')]"
         }
       }
     }
