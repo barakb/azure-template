@@ -122,7 +122,7 @@ echo ">> Fix jackson dependency" # TODO FIX ME
 jackson_lib_folder="$xap_home/lib/optional/jackson"
 jackson_base_url="http://central.maven.org/maven2/com/fasterxml/jackson/core"
 
-rm "$jackson_lib_folder/*"
+rm $jackson_lib_folder/*
 
 sudo wget -q -O "$jackson_lib_folder/jackson-annotations-2.7.0.jar" "$jackson_base_url/jackson-annotations/2.7.0/jackson-annotations-2.7.0.jar"
 sudo wget -q -O "$jackson_lib_folder/jackson-core-2.7.2.jar" "$jackson_base_url/jackson-core/2.7.2/jackson-core-2.7.2.jar"
