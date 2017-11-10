@@ -5,9 +5,10 @@ echo "Starting XAP..."
 print_input_parameter() {
     key=$1
     value=$2
-    echo "  $key = $value"
+    echo "  $key = $value" >> /opt/install.log 2>&1
 }
 
+{
 echo "Parsing input parameters..."
 
 while [ $# -gt 0 ]; do
@@ -61,6 +62,10 @@ while [ $# -gt 0 ]; do
         shift
         shift
         ;;
+        *)
+        echo "Unrecognized parameter: $key"
+        shift
+        ;;
     esac
 done
 
@@ -72,7 +77,7 @@ xap_home=/opt/$xap_folder_name
 xap_envs=$xap_home/bin/setenv-overrides.sh
 xap_plugins=$xap_home/lib/platform/manager/plugins
 
-{
+
 echo ">> Working variables:"
 echo "   - xap_folder_name = $xap_folder_name"
 echo "   - xap_home        = $xap_home"

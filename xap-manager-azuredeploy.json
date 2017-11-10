@@ -262,7 +262,7 @@
           "fileUris": [
             "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license ', parameters('xapLicense'), ' --ssh-key', parameters('sshKey'), ' --azure-client-id', parameters('azureClientId'), ' --azure-tenant-id', parameters('azureTenantId'), ' --azure-client-secret', parameters('azureClientSecret'), ' --azure-subscription-id', parameters('azureSubscriptionId'), ' --xap-blob-url', variables('xapBlobUrl'), ' --xap-rest-api-blob-url', variables('xapRestApiBlobUrl'))]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('sshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\"')]"
         }
       }
     }
