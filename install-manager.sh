@@ -2,63 +2,66 @@
 
 echo "Starting XAP..."
 
-print_input_parameter() {
-    key=$1
-    value=$2
-    echo "  $key = $value" >> /opt/install.log 2>&1
-}
-
 {
 echo "Parsing input parameters..."
 
 while [ $# -gt 0 ]; do
     key="$1"
+    echo "key = $key"
     case $key in
         --xap-license)
-        export XAP_LICENSE_KEY=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export XAP_LICENSE_KEY="$2"
+        echo "  XAP_LICENSE_KEY = $XAP_LICENSE_KEY"
         shift
         shift
         ;;
         --ssh-key)
-        export SSH_PUBLIC_KEY=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export SSH_PUBLIC_KEY="$2"
+        echo "  SSH_PUBLIC_KEY = $SSH_PUBLIC_KEY"
         shift
         shift
         ;;
         --azure-client-id)
-        export AZURE_AUTH_CLIENT_ID=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export AZURE_AUTH_CLIENT_ID="$2"
+        echo "  AZURE_AUTH_CLIENT_ID = $AZURE_AUTH_CLIENT_ID"
         shift
         shift
         ;;
         --azure-tenant-id)
-        export AZURE_AUTH_TENANT_ID=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export AZURE_AUTH_TENANT_ID="$2"
+        echo "  AZURE_AUTH_TENANT_ID = $AZURE_AUTH_TENANT_ID"
         shift
         shift
         ;;
         --azure-client-secret)
-        export AZURE_AUTH_CLIENT_SECRET=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export AZURE_AUTH_CLIENT_SECRET="$2"
+        echo "  AZURE_AUTH_CLIENT_SECRET = $AZURE_AUTH_CLIENT_SECRET"
         shift
         shift
         ;;
         --azure-subscription-id)
-        export AZURE_AUTH_SUBSCRIPTION_ID=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export AZURE_AUTH_SUBSCRIPTION_ID="$2"
+        echo "  AZURE_AUTH_SUBSCRIPTION_ID = $AZURE_AUTH_SUBSCRIPTION_ID"
         shift
         shift
         ;;
         --xap-blob-url)
-        export XAP_BLOB_URL=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export XAP_BLOB_URL="$2"
+        echo "  XAP_BLOB_URL = $XAP_BLOB_URL"
         shift
         shift
         ;;
         --xap-rest-api-blob-url)
-        export XAP_REST_API_BLOB_URL=$2
-        print_input_parameter $key $2
+        echo "  $key = $2"
+        export XAP_REST_API_BLOB_URL="$2"
+        echo "  XAP_REST_API_BLOB_URL = $XAP_REST_API_BLOB_URL"
         shift
         shift
         ;;
