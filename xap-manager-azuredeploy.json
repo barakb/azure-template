@@ -92,13 +92,6 @@
       "metadata": {
         "description": "The Manager's storage account type."
       }
-    },
-    "storageAccountName": {
-      "type": "string",
-      "defaultValue": "xapstorage",
-      "metadata": {
-        "description": "The Storage account name"
-      }
     }
   },
   "variables": {
@@ -119,17 +112,6 @@
     "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/rest-api.jar"
   },
   "resources": [
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountName')]",
-      "apiVersion": "2017-06-01",
-      "location": "[resourceGroup().location]",
-      "sku": {
-        "name": "[parameters('managerStorageAccountType')]"
-      },
-      "kind": "Storage",
-      "properties": {}
-    },
     {
       "apiVersion": "2017-04-01",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -192,7 +174,6 @@
       "name": "[parameters('managerVmName')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
         "[resourceId('Microsoft.Network/networkInterfaces/', parameters('nicName'))]"
       ],
       "properties": {
@@ -228,12 +209,6 @@
               "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nicName'))]"
             }
           ]
-        },
-        "diagnosticsProfile": {
-          "bootDiagnostics": {
-            "enabled": true,
-            "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName')), '2016-01-01').primaryEndpoints.blob)]"
-          }
         }
       }
     },
