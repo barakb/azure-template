@@ -260,13 +260,5 @@
     }
   ],
   "outputs": {
-    "hostname": {
-      "type": "string",
-      "value": "[reference(parameters('managerPublicIPAddressName')).dnsSettings.fqdn]"
-    },
-    "sshCommand": {
-      "type": "string",
-      "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(parameters('managerPublicIPAddressName')).dnsSettings.fqdn)]"
-    }
   }
 }
