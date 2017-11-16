@@ -79,6 +79,48 @@ while [ $# -gt 0 ]; do
         shift
         shift
         ;;
+        --azure-resource-group)
+        echo "  $key = $2"
+        export AZURE_RESOURCE_GROUP="$2"
+        echo "  AZURE_RESOURCE_GROUP = $AZURE_RESOURCE_GROUP"
+        shift
+        shift
+        ;;
+        --azure-network)
+        echo "  $key = $2"
+        export AZURE_NETWORK="$2"
+        echo "  AZURE_NETWORK = $AZURE_NETWORK"
+        shift
+        shift
+        ;;
+        --azure-worker-subnet)
+        echo "  $key = $2"
+        export AZURE_WORKER_SUBNET="$2"
+        echo "  AZURE_WORKER_SUBNET = $AZURE_WORKER_SUBNET"
+        shift
+        shift
+        ;;
+        --azure-region)
+        echo "  $key = $2"
+        export AZURE_REGION="$2"
+        echo "  AZURE_REGION = $AZURE_REGION"
+        shift
+        shift
+        ;;
+        --manager-vm-username)
+        echo "  $key = $2"
+        export MANAGER_VM_USERNAME="$2"
+        echo "  MANAGER_VM_USERNAME = $MANAGER_VM_USERNAME"
+        shift
+        shift
+        ;;
+        --worker-name-prefix)
+        echo "  $key = $2"
+        export WORKER_NAME_PREFIX="$2"
+        echo "  WORKER_NAME_PREFIX = $WORKER_NAME_PREFIX"
+        shift
+        shift
+        ;;
         *)
         echo "Unrecognized parameter: $key"
         shift
