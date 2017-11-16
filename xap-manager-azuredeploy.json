@@ -44,13 +44,6 @@
         "description": "The Xap license value."
       }
     },
-    "virtualNetworkName": {
-      "type": "string",
-      "defaultValue": "xap-virtual-network",
-      "metadata": {
-        "description": "The name of virtual network which will be created during installation."
-      }
-    },
     "managerVmSize": {
       "type": "string",
       "defaultValue": "Standard_A1",
@@ -72,11 +65,39 @@
         "description": "The Nic name."
       }
     },
-    "subnetName": {
+    "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "xap-subnet",
+      "defaultValue": "xap-virtual-network",
       "metadata": {
-        "description": "The Subnet name."
+        "description": "The name of virtual network which will be created during installation."
+      }
+    },
+    "managerSubnetName": {
+      "type": "string",
+      "defaultValue": "xap-manager-subnet",
+      "metadata": {
+        "description": "The Manager Subnet name."
+      }
+    },
+    "workerSubnetName": {
+      "type": "string",
+      "defaultValue": "xap-worker-subnet",
+      "metadata": {
+        "description": "The Worker Subnet name."
+      }
+    },
+    "managerSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "The Manager subnet prefix."
+      }
+    },
+    "workerSubnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "The Worker subnet prefix."
       }
     },
     "managerPublicIPAddressName": {
@@ -99,24 +120,15 @@
       "metadata": {
         "description": "The network address prefix."
       }
-    },
-    "subnetPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/24",
-      "metadata": {
-        "description": "The subnet prefix."
-      }
     }
   },
   "variables": {
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
     "imageSKU": "16.04-LTS",
-    "addressPrefix": "10.0.0.0/16",
-    "subnetPrefix": "10.0.0.0/24",
     "publicIPAddressType": "Dynamic",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('managerSubnetName'))]",
     "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
     "imageVhdUrl": "https://xapvhd2.blob.core.windows.net/vhds/vm10disk.vhd",
     "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/azure-template/master/",
@@ -136,10 +148,90 @@
       }
     },
     {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(parameters('managerSubnetName'), '-security-group')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "ssh-rule",
+            "properties": {
+              "description": "Allow SSH",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "22",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "rest-api-rule",
+            "properties": {
+              "description": "Allow Rest Api",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "8090",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 101,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "web-iu-rule",
+            "properties": {
+              "description": "Allow XAP WEB UI",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "8099",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 102,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[concat(parameters('workerSubnetName'), '-security-group')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "allow-manager",
+            "properties": {
+              "description": "Allow Manager subnet access",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('managerSubnetPrefix')]",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
       "apiVersion": "2017-04-01",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('virtualNetworkName')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('managerSubnetName'), '-security-group'))]",
+        "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('workerSubnetName'), '-security-group'))]"
+      ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -148,9 +240,21 @@
         },
         "subnets": [
           {
-            "name": "[parameters('subnetName')]",
+            "name": "[parameters('managerSubnetName')]",
             "properties": {
-              "addressPrefix": "[parameters('subnetPrefix')]"
+              "addressPrefix": "[parameters('managerSubnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('managerSubnetName'), '-security-group'))]"
+              }
+            }
+          },
+          {
+            "name": "[parameters('workerSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('workerSubnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(parameters('workerSubnetName'), '-security-group'))]"
+              }
             }
           }
         ]
