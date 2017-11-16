@@ -120,6 +120,13 @@
       "metadata": {
         "description": "The network address prefix."
       }
+    },
+    "workerNamePrefix": {
+      "type": "string",
+      "defaultValue": "xap-worker",
+      "metadata": {
+        "description": "The worker VM prefix."
+      }
     }
   },
   "variables": {
@@ -347,7 +354,7 @@
           "fileUris": [
             "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\"')]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\" --azure-resource-group \"', resourceGroup().name, '\" --azure-network \"', parameters('virtualNetworkName'), '\" --azure-worker-subnet \"', parameters('workerSubnetName'), '\" --azure-region \"', resourceGroup().location, '\" --manager-vm-username \"', parameters('adminUsername'), '\" --worker-name-prefix \"', parameters('workerNamePrefix'), '\"')]"
         }
       }
     }
