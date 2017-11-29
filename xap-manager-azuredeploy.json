@@ -26,7 +26,7 @@
         "description": "Azure Subscription Id."
       }
     },
-    "adminUsername": {
+    "vmAdminUsername": {
       "type": "string",
       "metadata": {
         "description": "User name for the Virtual Machine."
@@ -223,7 +223,7 @@
     "publicIPAddressType": "Dynamic",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('managerSubnetName'))]",
-    "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
+    "sshKeyPath": "[concat('/home/',parameters('vmAdminUsername'),'/.ssh/authorized_keys')]",
     "imageVhdUrl": "https://xapvhd2.blob.core.windows.net/vhds/vm10disk.vhd",
     "scriptsBase": "https://raw.githubusercontent.com/vitaliy-zinchenko/azure-template/master/",
     "xapManagerRunScript": "install-manager.sh",
@@ -394,7 +394,7 @@
         },
         "osProfile": {
           "computerName": "[parameters('managerVmName')]",
-          "adminUsername": "[parameters('adminUsername')]",
+          "adminUsername": "[parameters('vmAdminUsername')]",
           "linuxConfiguration": {
             "disablePasswordAuthentication": true,
             "ssh": {
@@ -441,7 +441,7 @@
           "fileUris": [
             "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\" --azure-resource-group \"', resourceGroup().name, '\" --azure-network \"', parameters('virtualNetworkName'), '\" --azure-worker-subnet \"', parameters('workerSubnetName'), '\" --azure-region \"', resourceGroup().location, '\" --manager-vm-username \"', parameters('adminUsername'), '\" --worker-name-prefix \"', parameters('workerNamePrefix'), '\"')]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\" --azure-resource-group \"', resourceGroup().name, '\" --azure-network \"', parameters('virtualNetworkName'), '\" --azure-worker-subnet \"', parameters('workerSubnetName'), '\" --azure-region \"', resourceGroup().location, '\" --manager-vm-username \"', parameters('vmAdminUsername'), '\" --worker-name-prefix \"', parameters('workerNamePrefix'), '\"')]"
         }
       }
     }
