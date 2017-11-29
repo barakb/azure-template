@@ -121,6 +121,20 @@ while [ $# -gt 0 ]; do
         shift
         shift
         ;;
+        --grid-user-name)
+        echo "  $key = $2"
+        export GRID_USER_NAME="$2"
+        echo "  GRID_USER_NAME = $GRID_USER_NAME"
+        shift
+        shift
+        ;;
+         --grid-user-password)
+        echo "  $key = $2"
+        export GRID_USER_PASSWORD="$2"
+        echo "  GRID_USER_PASSWORD = $GRID_USER_PASSWORD"
+        shift
+        shift
+        ;;
         *)
         echo "Unrecognized parameter: $key"
         shift
@@ -172,7 +186,8 @@ sudo wget -q -O "$jackson_lib_folder/jackson-databind-2.7.2.jar" "$jackson_base_
 
 echo ">> Export env variables"
 
-export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
+export XAP_MANAGER_OPTIONS="-Dcom.gs.manager.rest.ssl.enabled=true"
+export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY -Dcom.gs.security.enabled=true"
 export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
 } > /opt/install.log 2>&1
