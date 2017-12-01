@@ -62,6 +62,6 @@ export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$MANAGER_IP
 } > /opt/install.log 2>&1
 
-nohup $xap_home/bin/gs-agent.sh --gsc=1 > /opt/xap.log 2>&1 &
+nohup $xap_home/bin/gs-agent.sh --gsc=0 > /opt/xap.log 2>&1 &
 
 echo "Startup script completed!"
