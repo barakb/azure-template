@@ -50,17 +50,17 @@
         "description": "Password of grid user"
       }
     },
+    "xapLicense": {
+      "type": "string",
+      "metadata": {
+        "description": "The Xap license value."
+      }
+    },
     "gridUserPrivileges": {
       "type": "string",
       "defaultValue": "PROVISION_PU,MANAGE_PU,MANAGE_GRID",
       "metadata": {
         "description": "Privileges of grid user"
-      }
-    },
-    "xapLicense": {
-      "type": "string",
-      "metadata": {
-        "description": "The Xap license value."
       }
     },
     "managerVmSize": {
