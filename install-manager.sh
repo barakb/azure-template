@@ -128,17 +128,10 @@ while [ $# -gt 0 ]; do
         shift
         shift
         ;;
-        --grid-user-password)
+         --grid-user-password)
         echo "  $key = $2"
         export GRID_USER_PASSWORD="$2"
         echo "  GRID_USER_PASSWORD = $GRID_USER_PASSWORD"
-        shift
-        shift
-        ;;
-        --grid-user-privileges)
-        echo "  $key = $2"
-        export GRID_USER_PRIVILEGES="$2"
-        echo "  GRID_USER_PRIVILEGES = $GRID_USER_PRIVILEGES"
         shift
         shift
         ;;
