@@ -50,6 +50,13 @@
         "description": "Password of grid user"
       }
     },
+    "gridUserPrivileges": {
+      "type": "string",
+      "defaultValue": "PROVISION_PU,MANAGE_PU,MANAGE_GRID",
+      "metadata": {
+        "description": "Privileges of grid user"
+      }
+    },
     "xapLicense": {
       "type": "string",
       "metadata": {
@@ -453,7 +460,7 @@
           "fileUris": [
             "[concat(variables('scriptsBase'), variables('xapManagerRunScript'))]"
           ],
-          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\" --azure-resource-group \"', resourceGroup().name, '\" --azure-network \"', parameters('virtualNetworkName'), '\" --azure-worker-subnet \"', parameters('workerSubnetName'), '\" --azure-region \"', resourceGroup().location, '\" --manager-vm-username \"', parameters('vmAdminUsername'), '\" --worker-name-prefix \"', parameters('workerNamePrefix'), '\" --grid-user-name \"', parameters('gridUsername'), '\" --grid-user-password \"', parameters('gridUserPassword'), '\"')]"
+          "commandToExecute": "[concat('sh ', variables('xapManagerRunScript'), ' --xap-license \"', parameters('xapLicense'), '\" --ssh-key \"', parameters('publicSshKey'), '\" --azure-client-id \"', parameters('azureClientId'), '\" --azure-tenant-id \"', parameters('azureTenantId'), '\" --azure-client-secret \"', parameters('azureClientSecret'), '\" --azure-subscription-id \"', parameters('azureSubscriptionId'), '\" --xap-blob-url \"', variables('xapBlobUrl'), '\" --xap-rest-api-blob-url \"', variables('xapRestApiBlobUrl'), '\" --install-script-base \"', variables('scriptsBase'), '\" --install-worker-script-name \"', variables('xapWorkerRunScript'), '\" --azure-resource-group \"', resourceGroup().name, '\" --azure-network \"', parameters('virtualNetworkName'), '\" --azure-worker-subnet \"', parameters('workerSubnetName'), '\" --azure-region \"', resourceGroup().location, '\" --manager-vm-username \"', parameters('vmAdminUsername'), '\" --worker-name-prefix \"', parameters('workerNamePrefix'), '\" --grid-user-name \"', parameters('gridUsername'), '\" --grid-user-password \"', parameters('gridUserPassword'), '\" --grid-user-privileges \"', parameters('gridUserPrivileges'))]"
         }
       }
     }
