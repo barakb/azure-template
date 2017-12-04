@@ -199,7 +199,7 @@ export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
 } > /opt/install.log 2>&1
 
-nohup $xap_home/bin/gs-agent.sh --manager --gsm=1 > /opt/xap.log 2>&1 &
+nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
 
 nohup $xap_home/bin/gs-webui.sh > /opt/webui.log 2>&1 &
 
