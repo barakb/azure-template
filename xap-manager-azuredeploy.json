@@ -248,7 +248,7 @@
     "xapManagerRunScript": "install-manager.sh",
     "xapWorkerRunScript": "install-worker.sh",
     "xapBlobUrl": "https://xapblob.blob.core.windows.net/xap/gigaspaces-xap-12.2.0-ga-b18000.zip",
-    "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/rest-api.jar"
+    "xapRestApiBlobUrl": "https://xapblob.blob.core.windows.net/xap/cloud-deployment.jar"
   },
   "resources": [
     {

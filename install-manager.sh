@@ -179,7 +179,7 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee --append $x
 
 echo ">> Copy Rest API jar to $xap_plugins"
 sudo mkdir -p $xap_plugins
-sudo wget -q -O $xap_plugins/rest-api.jar $XAP_REST_API_BLOB_URL
+sudo wget -q -O $xap_plugins/cloud-deployment.jar $XAP_REST_API_BLOB_URL
 
 echo ">> Fix jackson dependency" # TODO FIX ME
 jackson_lib_folder="$xap_home/lib/optional/jackson"
