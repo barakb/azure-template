@@ -58,7 +58,8 @@ sudo unzip -u -d /opt -q /opt/xap.zip
 echo ">> Setup env variables"
 echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee --append $xap_envs > /dev/null
 
-export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
+export EXT_JAVA_OPTIONS_SECURITY="-Dcom.gs.security.enabled=true"
+export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY $EXT_JAVA_OPTIONS_SECURITY"
 export XAP_MANAGER_SERVERS=$MANAGER_IP
 } > /opt/install.log 2>&1
 
