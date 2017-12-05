@@ -198,6 +198,10 @@ export EXT_JAVA_OPTIONS_SECURITY="-Dcom.gs.security.enabled=true"
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY $EXT_JAVA_OPTIONS $EXT_JAVA_OPTIONS_SECURITY"
 export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
+
+echo ">> Environment variables"
+printenv
+
 } > /opt/install.log 2>&1
 
 nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
