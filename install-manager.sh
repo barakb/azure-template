@@ -193,8 +193,9 @@ sudo wget -q -O "$jackson_lib_folder/jackson-databind-2.7.2.jar" "$jackson_base_
 
 echo ">> Export env variables"
 
-export XAP_MANAGER_OPTIONS="-Dcom.gs.manager.rest.ssl.enabled=true"
-export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY -Dcom.gs.security.enabled=true"
+# export XAP_MANAGER_OPTIONS="$XAP_MANAGER_OPTIONS -Dcom.gs.manager.rest.ssl.enabled=true"
+# export EXT_JAVA_OPTIONS_SECURITY="-Dcom.gs.security.enabled=true"
+export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY $EXT_JAVA_OPTIONS $EXT_JAVA_OPTIONS_SECURITY"
 export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
 } > /opt/install.log 2>&1
