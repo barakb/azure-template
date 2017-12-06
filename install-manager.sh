@@ -198,11 +198,16 @@ export EXT_JAVA_OPTIONS_SECURITY="-Dcom.gs.security.enabled=true"
 export EXT_JAVA_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY $EXT_JAVA_OPTIONS $EXT_JAVA_OPTIONS_SECURITY"
 export XAP_WEBUI_OPTIONS="-Dcom.gs.licensekey=$XAP_LICENSE_KEY"
 export XAP_MANAGER_SERVERS=$(hostname)
+export XAP_HOME="$xap_home"
 
 echo ">> Environment variables"
 printenv
 
 } > /opt/install.log 2>&1
+
+java -cp $xap_plugins/cloud-deployment.jar:$xap_home/lib/required/xap-common.jar:$xap_home/lib/required/xap-datagrid.jar:$xap_home/lib/optional/security/xap-security.jar org.gigaspaces.cloud_deployment.utils.UserProvider > /opt/user-provider.log 2>&1
+
+java /opt/cloud-deployment.jar
 
 nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
 
