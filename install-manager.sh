@@ -207,8 +207,6 @@ printenv
 
 java -cp $xap_plugins/cloud-deployment.jar:$xap_home/lib/required/xap-common.jar:$xap_home/lib/required/xap-datagrid.jar:$xap_home/lib/optional/security/xap-security.jar org.gigaspaces.cloud_deployment.utils.UserProvider > /opt/user-provider.log 2>&1
 
-java /opt/cloud-deployment.jar
-
 nohup $xap_home/bin/gs-agent.sh --manager > /opt/xap.log 2>&1 &
 
 nohup $xap_home/bin/gs-webui.sh > /opt/webui.log 2>&1 &
